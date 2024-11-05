@@ -71,38 +71,6 @@ public class user {
         this.konek = konek;
     }
 
-    public PreparedStatement getPs() {
-        return ps;
-    }
-
-    public void setPs(PreparedStatement ps) {
-        this.ps = ps;
-    }
-
-    public Statement getSt() {
-        return st;
-    }
-
-    public void setSt(Statement st) {
-        this.st = st;
-    }
-
-    public ResultSet getRs() {
-        return rs;
-    }
-
-    public void setRs(ResultSet rs) {
-        this.rs = rs;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-    
   
 public void tambahUser(){
         query = "INSERT INTO user VALUES(?,?,MD5(?),?,?)";
@@ -135,7 +103,7 @@ public ResultSet tampilUser(){
 
 
     public void hapusdata(){
-        query = "DELETE FROM user_name = ?";
+        query = "DELETE FROM user WHERE user_name = ?";
         try {
             ps = konek.prepareStatement(query);
             ps.setString(1, user_name);

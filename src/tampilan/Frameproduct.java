@@ -27,34 +27,35 @@ public class Frameproduct extends javax.swing.JFrame {
         comboBox ();
     }
     
-    void loadTable(){
-        DefaultTableModel model = new  DefaultTableModel();
+        void loadTable() {
+        DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID PRODUK");
         model.addColumn("PRODUK");
         model.addColumn("DESKRIPSI");
         model.addColumn("HARGA");
         model.addColumn("KATEGORI");
-        
+
         try {
-            product pro = new  product();
+            product pro = new product();
             ResultSet data = pro.tampilProduk();
-            
-            while (data.next()){
+
+            while (data.next()) {
                 model.addRow(new Object[]{
                     data.getString("ID"),
                     data.getString("Nama"),
                     data.getString("Deskripsi"),
                     data.getString("Harga"),
                     data.getString("Kategori"),});
-                
-                
+
             }
+
         } catch (SQLException sQLException) {
-            
+
         }
-        
+
         dproduct.setModel(model);
     }
+
     
     void reset() {
         autoID();
@@ -80,22 +81,23 @@ public class Frameproduct extends javax.swing.JFrame {
         }
     }
     
-    void autoID(){
-        
+    void autoID() {
+
         try {
             product pro = new product();
             ResultSet id = pro.autoID();
-            
+
             if (id.next()) {
                 int auto = id.getInt("ID") + 1;
                 bID.setText(String.valueOf(auto));
-                
             } else {
                 bID.setText("1");
             }
+
         } catch (SQLException sQLException) {
         }
     }
+
     
     
     
@@ -161,6 +163,12 @@ public class Frameproduct extends javax.swing.JFrame {
             }
         });
 
+        bNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bNamaActionPerformed(evt);
+            }
+        });
+
         bHarga.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bHargaActionPerformed(evt);
@@ -184,8 +192,6 @@ public class Frameproduct extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(dproduct);
-
-        xKategori.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Makanan", "Kecantikan", "Fashion" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -296,9 +302,7 @@ public class Frameproduct extends javax.swing.JFrame {
             pro.setProduct_id(Integer.parseInt(bID.getText()));
             pro.setProduct_name(bNama.getText());
             pro.setProduct_desc(bDeskripsi.getText());
-            
             pro.setProduct_price(Integer.parseInt(bHarga.getText()));
-            
             cat.setCategory_name(xKategori.getSelectedItem().toString());
                         ResultSet data = cat.Konversi();
                         
@@ -306,12 +310,12 @@ public class Frameproduct extends javax.swing.JFrame {
                             String isi = data.getString("category_id");
                             pro.setProduct_cat_id(Integer.parseInt(isi));
                 
-            }
-            
+            }            
             pro.tambahProduk();
         } catch (SQLException sQLException) {
             System.out.println("data tidak masuk");
         }
+        
         loadTable();
         reset();
         
@@ -336,9 +340,8 @@ public class Frameproduct extends javax.swing.JFrame {
             product pro = new product();
             category cat = new category();
             pro.setProduct_id(Integer.parseInt(bID.getText()));
-            pro.setProduct_name(bNama.getName());
-            pro.setProduct_desc(bDeskripsi.getText());
-            
+            pro.setProduct_name(bNama.getText());
+            pro.setProduct_desc(bDeskripsi.getText());            
             pro.setProduct_price(Integer.parseInt(bHarga.getText()));
             cat.setCategory_name(xKategori.getSelectedItem().toString());
                         ResultSet data = cat.Konversi();
@@ -354,6 +357,10 @@ public class Frameproduct extends javax.swing.JFrame {
         loadTable();
         reset();
     }//GEN-LAST:event_tUbahActionPerformed
+
+    private void bNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNamaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bNamaActionPerformed
 
     /**
      * @param args the command line arguments

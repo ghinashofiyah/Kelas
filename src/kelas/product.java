@@ -47,7 +47,7 @@ public int getProduct_id() {
     }
 
     public void setProduct_price(int products_price) {
-        this.product_price = product_price;
+        this.product_price = products_price;
     }
 
     public int getProduct_cat_id() {
@@ -96,25 +96,24 @@ public int getProduct_id() {
     public ResultSet tampilProduk(){
         query = "SELECT "
                 + "p.product_id AS ID,"
-                + "p.product_name AS Nama, "
-                + "p.product_desc AS Deskripsi , "
+                + "p.product_name AS Nama,  "
+                + "p.product_desc AS Deskripsi  , "
                 + "p.product_price AS Harga, "
-                + "c.category c ON p.product_cat_id = c.category_id";
+                + "c.category_name AS Kategori "
+                + "FROM product p "
+                + "JOIN  category c ON p.product_cat_id = c.category_id";
         try {
-            st = konek.createStatement();
+            st = konek.createStatement();            
             rs = st.executeQuery(query);
-            
         } catch (SQLException sQLException) {
             JOptionPane.showMessageDialog(null, "Data Gagal Tampil");
-       
         }
-        
         return rs;
-       
-    }
+    }    
+
     
     public void hapusProduk(){
-        query = "DELETE FROM product WHERE pruduct_id";
+        query = "DELETE FROM product WHERE product_id = ?";
         try {
             ps = konek.prepareStatement(query);
             ps.setInt(1, product_id);
@@ -155,16 +154,15 @@ public int getProduct_id() {
     }
     
     public ResultSet autoID(){
-        query = "SELECT product_id AS ID FROM product ORDER product_id DESC LIMIT 1";
+       query = "SELECT product_id AS ID FROM product ORDER BY product_id DESC LIMIT 1";
         try {
-            st = konek.createStatement();
+            st = konek.createStatement();            
             rs = st.executeQuery(query);
         } catch (SQLException sQLException) {
             JOptionPane.showMessageDialog(null, "Data Gagal Tampil");
         }
-        
         return rs;
-    }
+    }    
 
  }
 
